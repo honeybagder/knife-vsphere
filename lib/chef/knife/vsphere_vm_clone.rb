@@ -155,7 +155,7 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
 		:short => "-d DISTRO",
 		:long => "--distro DISTRO",
 		:description => "Bootstrap a distro using a template"
-	$default[:distro] = "ubuntu10.04-gems"
+	$default[:distro] = "chef-full"
 
 	option :template_file,
 		:long => "--template-file TEMPLATE",
@@ -242,9 +242,9 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
 		if get_config(:bootstrap)
 			sleep 2 until vm.guest.ipAddress
 			config[:fqdn] = vm.guest.ipAddress unless config[:fqdn]
-			print "Waiting for sshd..."
-			print "." until tcp_test_ssh(config[:fqdn])
-			puts "done"
+#			print "Waiting for sshd..."
+#			print "." until tcp_test_ssh(config[:fqdn])
+#			puts "done"
 
 			bootstrap_for_node.run
 		end
