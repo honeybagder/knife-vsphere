@@ -1,4 +1,4 @@
 module KnifeVsphere
-  VERSION = "0.8.1-badger"
+  VERSION = "0.9.5"
 end
 

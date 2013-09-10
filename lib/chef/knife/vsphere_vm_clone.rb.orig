@@ -26,6 +26,153 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
          :long => "--dest-folder FOLDER",
          :description => "The folder into which to put the cloned VM"
 
+<<<<<<< HEAD
+	option :datastore,
+		:long => "--datastore STORE",
+		:description => "The datastore into which to put the cloned VM"
+
+	option :resource_pool,
+		:long => "--resource-pool POOL",
+		:description => "The resource pool into which to put the cloned VM"
+
+	option :source_vm,
+		:long => "--template TEMPLATE",
+		:description => "The source VM / Template to clone from",
+		:required => true
+
+	option :annotation,
+		:long => "--annotation TEXT",
+		:description => "Add TEXT in Notes field from annotation"
+
+	option :customization_spec,
+		:long => "--cspec CUST_SPEC",
+		:description => "The name of any customization specification to apply"
+
+	option :customization_plugin,
+		:long => "--cplugin CUST_PLUGIN_PATH",
+		:description => "Path to plugin that implements KnifeVspherePlugin.customize_clone_spec and/or KnifeVspherePlugin.reconfig_vm"
+
+	option :customization_plugin_data,
+		:long => "--cplugin-data CUST_PLUGIN_DATA",
+		:description => "String of data to pass to the plugin.  Use any format you wish."
+
+	option :customization_vlan,
+		:long => "--cvlan CUST_VLAN",
+		:description => "VLAN name for network adapter to join"
+
+	option :customization_ips,
+		:long => "--cips CUST_IPS",
+		:description => "Comma-delimited list of CIDR IPs for customization"
+
+	option :customization_dns_ips,
+		:long => "--cdnsips CUST_DNS_IPS",
+		:description => "Comma-delimited list of DNS IP addresses"
+
+	option :customization_dns_suffixes,
+		:long => "--cdnssuffix CUST_DNS_SUFFIXES",
+		:description => "Comma-delimited list of DNS search suffixes"
+
+	option :customization_gw,
+		:long => "--cgw CUST_GW",
+		:description => "CIDR IP of gateway for customization"
+
+	option :customization_hostname,
+		:long => "--chostname CUST_HOSTNAME",
+		:description => "Unqualified hostname for customization"
+
+	option :customization_domain,
+		:long => "--cdomain CUST_DOMAIN",
+		:description => "Domain name for customization"
+
+	option :customization_tz,
+		:long => "--ctz CUST_TIMEZONE",
+		:description => "Timezone invalid 'Area/Location' format"
+
+	option :customization_cpucount,
+		:long => "--ccpu CUST_CPU_COUNT",
+		:description => "Number of CPUs"
+
+	option :customization_memory,
+		:long => "--cram CUST_MEMORY_GB",
+		:description => "Gigabytes of RAM"
+
+	option :power,
+		:long => "--start",
+		:description => "Indicates whether to start the VM after a successful clone",
+		:boolean => false
+
+	option :bootstrap,
+		:long => "--bootstrap",
+		:description => "Indicates whether to bootstrap the VM",
+		:boolean => false
+
+	option :fqdn,
+		:long => "--fqdn SERVER_FQDN",
+		:description => "Fully qualified hostname for bootstrapping"
+
+	option :ssh_user,
+		:short => "-x USERNAME",
+		:long => "--ssh-user USERNAME",
+		:description => "The ssh username"
+	$default[:ssh_user] = "root"
+
+	option :ssh_password,
+		:short => "-P PASSWORD",
+		:long => "--ssh-password PASSWORD",
+		:description => "The ssh password"
+
+	option :ssh_port,
+		:short => "-p PORT",
+		:long => "--ssh-port PORT",
+		:description => "The ssh port"
+	$default[:ssh_port] = 22
+
+	option :identity_file,
+		:short => "-i IDENTITY_FILE",
+		:long => "--identity-file IDENTITY_FILE",
+		:description => "The SSH identity file used for authentication"
+
+	option :chef_node_name,
+		:short => "-N NAME",
+		:long => "--node-name NAME",
+		:description => "The Chef node name for your new node"
+
+	option :prerelease,
+		:long => "--prerelease",
+		:description => "Install the pre-release chef gems",
+		:boolean => false
+
+	option :bootstrap_version,
+		:long => "--bootstrap-version VERSION",
+		:description => "The version of Chef to install",
+		:proc => Proc.new { |v| Chef::Config[:knife][:bootstrap_version] = v }
+
+	option :bootstrap_proxy,
+		:long => "--bootstrap-proxy PROXY_URL",
+		:description => "The proxy server for the node being bootstrapped",
+		:proc => Proc.new { |p| Chef::Config[:knife][:bootstrap_proxy] = p }
+
+	option :distro,
+		:short => "-d DISTRO",
+		:long => "--distro DISTRO",
+		:description => "Bootstrap a distro using a template"
+	$default[:distro] = "chef-full"
+
+	option :template_file,
+		:long => "--template-file TEMPLATE",
+		:description => "Full path to location of template to use"
+
+	option :run_list,
+		:short => "-r RUN_LIST",
+		:long => "--run-list RUN_LIST",
+		:description => "Comma separated list of roles/recipes to apply"
+	$default[:run_list] = ''
+
+	option :no_host_key_verify,
+		:long => "--no-host-key-verify",
+		:description => "Disable host key verification",
+		:boolean => true
+=======
   option :datastore,
          :long => "--datastore STORE",
          :description => "The datastore into which to put the cloned VM"
@@ -175,6 +322,7 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
          :long => "--no-host-key-verify",
          :description => "Disable host key verification",
          :boolean => true
+>>>>>>> 1e94e421c1c236a4b7d24e3a706f7e2b35e4c2ed
 
   option :first_boot_attributes,
          :short => "-j JSON_ATTRIBS",
@@ -243,12 +391,21 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
       puts "Powered on virtual machine #{vmname}"
     end
 
+<<<<<<< HEAD
+		if get_config(:bootstrap)
+			sleep 2 until vm.guest.ipAddress
+			config[:fqdn] = vm.guest.ipAddress unless config[:fqdn]
+#			print "Waiting for sshd..."
+#			print "." until tcp_test_ssh(config[:fqdn])
+#			puts "done"
+=======
     if get_config(:bootstrap)
       sleep 2 until vm.guest.ipAddress
       config[:fqdn] = vm.guest.ipAddress unless config[:fqdn]
       print "Waiting for sshd..."
       print "." until tcp_test_ssh(config[:fqdn])
       puts "done"
+>>>>>>> 1e94e421c1c236a4b7d24e3a706f7e2b35e4c2ed
 
       bootstrap_for_node.run
     end
