@@ -1,8 +1,0 @@
-module KnifeVsphere
-<<<<<<< HEAD
-  VERSION = "0.8.1-badger"
-=======
-  VERSION = "0.9.5"
->>>>>>> 1e94e421c1c236a4b7d24e3a706f7e2b35e4c2ed
-end
-
