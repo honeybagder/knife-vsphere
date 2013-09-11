@@ -249,7 +249,7 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
       # print "Waiting for sshd..."
       # print "." until tcp_test_ssh(config[:fqdn])
       # puts "done"
-
+      sleep 40
       bootstrap_for_node.run
     end
   end
