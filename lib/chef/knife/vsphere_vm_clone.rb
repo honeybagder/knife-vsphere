@@ -244,12 +244,11 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
     end
 
     if get_config(:bootstrap)
-      sleep 2 until vm.guest.ipAddress
+      sleep 40 until vm.guest.ipAddress
       config[:fqdn] = vm.guest.ipAddress unless config[:fqdn]
       # print "Waiting for sshd..."
       # print "." until tcp_test_ssh(config[:fqdn])
       # puts "done"
-      sleep 40
       bootstrap_for_node.run
     end
   end
