@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "knife-vsphere-badger"
+  s.name = "knife-vsphere"
   s.version = "0.9.5"
   s.summary = "vSphere Support for Knife"
 
