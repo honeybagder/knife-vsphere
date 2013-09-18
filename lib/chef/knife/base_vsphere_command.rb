@@ -277,7 +277,7 @@ class Chef
       end
 
       def tcp_test_port(hostname, port)
-        tcp_socket = TCPSocket.new(hostname, port)
+        tcp_socket = TCPSocket.open(hostname, port)
         readable = IO.select([tcp_socket], nil, nil, 5)
         if readable
           Chef::Log.debug("sshd accepting connections on #{hostname}, banner is #{tcp_socket.gets}") if port == 22

@@ -244,12 +244,12 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
     end
 
     if get_config(:bootstrap)
-      sleep 60;
+      # sleep 60;
       sleep 2 until vm.guest.ipAddress
       config[:fqdn] = vm.guest.ipAddress unless config[:fqdn]
-      # print "Waiting for sshd..."
-      # print "." until tcp_test_ssh(config[:fqdn])
-      # puts "done"
+      print "Waiting for sshd..."
+      print "." until tcp_test_ssh(config[:fqdn])
+      puts "done"
       bootstrap_for_node.run
     end
   end
@@ -462,7 +462,7 @@ class Chef::Knife::VsphereVmClone < Chef::Knife::BaseVsphereCommand
   end
 
   def tcp_test_ssh(hostname)
-    tcp_socket = TCPSocket.new(hostname, get_config(:ssh_port))
+    tcp_socket = TCPSocket.open(hostname, get_config(:ssh_port))
     readable = IO.select([tcp_socket], nil, nil, 5)
     if readable
       Chef::Log.debug("sshd accepting connections on #{hostname}, banner is #{tcp_socket.gets}")
